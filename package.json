@@ -1,0 +1,21 @@
+{
+  "name": "dragonrsense",
+  "displayName": "DragonRSense",
+  "description": "Where code stops being numbers and becomes meaning.",
+  "version": "0.0.1",
+  "publisher": "MagyGames",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["*"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "dragonrsense.hello",
+        "title": "DragonRSense: Hello"
+      }
+    ]
+  }
+}
