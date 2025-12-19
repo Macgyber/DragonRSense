@@ -16,6 +16,31 @@
         "command": "dragonrsense.hello",
         "title": "DragonRSense: Hello"
       }
-    ]
+    ],
+     "configuration": {
+    "title": "DragonRSense",
+    "properties": {
+      "dragonrsense.enableCoordinates": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enable hover helpers for x and y coordinates"
+      },
+      "dragonrsense.enableSizes": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enable hover helpers for w and h (width and height)"
+      },
+      "dragonrsense.enableSpriteHover": {
+        "type": "boolean",
+        "default": false,
+        "description": "Enable sprite path hover preview"
+      },
+      "dragonrsense.enableDecorations": {
+        "type": "boolean",
+        "default": false,
+        "description": "Enable visual decorations (icons) in the editor"
+      }
+    }
   }
-}
+} 
+
