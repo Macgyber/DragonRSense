@@ -1,4 +1,6 @@
 import * as vscode from "vscode";
+import { isDragonRubyFile } from "../../core/dragonruby";
+
 import * as path from "path";
 import * as fs from "fs";
 
@@ -10,7 +12,8 @@ export function provideSpriteHover(
   if (!config.get<boolean>("enableSpriteHover")) return;
 
   const text = document.getText();
-  if (!text.includes("args.")) return;
+  if (!isDragonRubyFile(document)) return;
+
 
   const range = document.getWordRangeAtPosition(position, /"([^"]+\.(png|jpg|jpeg))"/);
   if (!range) return;
