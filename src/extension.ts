@@ -11,6 +11,18 @@ import { applyCoordinateDecorations } from "./features/decorations/coordinates";
 
 export function activate(context: vscode.ExtensionContext) {
   console.log("DragonRSense activated 🐉");
+  
+// =========================
+// React to settings changes
+// =========================
+vscode.workspace.onDidChangeConfiguration(event => {
+  if (event.affectsConfiguration("dragonrsense")) {
+    const editor = vscode.window.activeTextEditor;
+    if (editor) {
+      applyCoordinateDecorations(editor);
+    }
+  }
+});
 
   // =========================
   // Hover Provider (DragonRuby)
