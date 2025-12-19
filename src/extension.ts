@@ -15,19 +15,26 @@ export function activate(context: vscode.ExtensionContext) {
   // =========================
   // Hover Provider (DragonRuby)
   // =========================
-  const hoverProvider = vscode.languages.registerHoverProvider(
-    { scheme: "file", language: "ruby" },
-    {
-      provideHover(document, position) {
-        // Sprite preview hover
-        const spriteHover = provideSpriteHover(document, position);
-        if (spriteHover) return spriteHover;
+ const hoverProvider = vscode.languages.registerHoverProvider(
+  { scheme: "file", language: "ruby" },
+  {
+    provideHover(document, position) {
+      // Only DragonRuby-like files
+      if (!document.getText().includes("args.")) return;
 
-        // Coordinate hover (x y w h)
-        return provideCoordinateHover(document, position);
-      }
+      // 1️⃣ Sprite preview (highest priority)
+      const spriteHover = provideSpriteHover(document, position);
+      if (spriteHover) return spriteHover;
+
+      // 2️⃣ Coordinates & sizes (x y w h)
+      const coordinateHover = provideCoordinateHover(document, position);
+      if (coordinateHover) return coordinateHover;
+
+      // 3️⃣ Future hovers go here (pivot, rotation, layers, etc.)
+      return;
     }
-  );
+  }
+);
 
   context.subscriptions.push(hoverProvider);
 
