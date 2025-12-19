@@ -1,4 +1,7 @@
 import * as vscode from "vscode";
+
+import { getSettings } from "../../core/settings";
+
 import { isDragonRubyFile } from "../../core/dragonruby";
 
 import * as path from "path";
@@ -8,8 +11,9 @@ export function provideSpriteHover(
   document: vscode.TextDocument,
   position: vscode.Position
 ): vscode.Hover | undefined {
-  const config = vscode.workspace.getConfiguration("dragonrsense");
-  if (!config.get<boolean>("enableSpriteHover")) return;
+  const settings = getSettings();
+if (!settings.enableSpriteHover) return;
+
 
   const text = document.getText();
   if (!isDragonRubyFile(document)) return;
