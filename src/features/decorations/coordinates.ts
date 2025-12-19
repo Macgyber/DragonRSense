@@ -1,4 +1,6 @@
 import * as vscode from "vscode";
+import { isDragonRubyFile } from "../../core/dragonruby";
+
 
 export function applyCoordinateDecorations(editor: vscode.TextEditor) {
   const config = vscode.workspace.getConfiguration("dragonrsense");
@@ -7,7 +9,8 @@ export function applyCoordinateDecorations(editor: vscode.TextEditor) {
   if (!config.get<boolean>("enableCoordinates")) return;
 
   const text = editor.document.getText();
-  if (!text.includes("args.")) return;
+ if (!isDragonRubyFile(editor.document)) return;
+
 
   const positionDecoration = vscode.window.createTextEditorDecorationType({
     before: {
