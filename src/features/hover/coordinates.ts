@@ -1,6 +1,8 @@
 import * as vscode from "vscode";
+import { getSettings } from "../../core/settings";
 
 import { isDragonRubyFile } from "../../core/dragonruby";
+
 
 
 export function provideCoordinateHover(
@@ -8,7 +10,9 @@ export function provideCoordinateHover(
   position: vscode.Position
 ): vscode.Hover | undefined {
 
-  const config = vscode.workspace.getConfiguration("dragonrsense");
+ const settings = getSettings();
+if (!settings.enableCoordinates && !settings.enableSizes) return;
+
   if (!config.get<boolean>("enableCoordinates") &&
       !config.get<boolean>("enableSizes")) {
     return;
@@ -38,6 +42,19 @@ export function provideCoordinateHover(
     case "h":
       if (!config.get<boolean>("enableSizes")) return;
       return new vscode.Hover("**h** → Height of the sprite or element");
+      case "x":
+  if (!settings.enableCoordinates) return;
+  ...
+case "y":
+  if (!settings.enableCoordinates) return;
+  ...
+case "w":
+  if (!settings.enableSizes) return;
+  ...
+case "h":
+  if (!settings.enableSizes) return;
+  ...
+
   }
 
   return;
