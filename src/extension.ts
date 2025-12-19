@@ -1,47 +1,48 @@
-import { applyCoordinateDecorations } from "./features/decorations/coordinates";
 import * as vscode from "vscode";
 
+// Hover features
+import { provideSpriteHover } from "./features/hover/sprites";
+import { provideCoordinateHover } from "./features/hover/coordinates";
+
+// Decorations
+import { applyCoordinateDecorations } from "./features/decorations/coordinates";
+
 export function activate(context: vscode.ExtensionContext) {
-  console.log("DragonRSense is active 🐉"
-             vscode.window.onDidChangeActiveTextEditor(editor => {
-  if (editor) {
-    applyCoordinateDecorations(editor);
-  }
-});
+  console.log("DragonRSense activated 🐉");
 
-if (vscode.window.activeTextEditor) {
-  applyCoordinateDecorations(vscode.window.activeTextEditor);
-}
-             );
-
+  // =========================
+  // Hover Provider (DragonRuby)
+  // =========================
   const hoverProvider = vscode.languages.registerHoverProvider(
     { scheme: "file", language: "ruby" },
     {
-   provideHover(document, position) {
-  // Only apply to DragonRuby-like files
-  const text = document.getText();
-  if (!text.includes("args.")) return;
+      provideHover(document, position) {
+        // Sprite preview hover
+        const spriteHover = provideSpriteHover(document, position);
+        if (spriteHover) return spriteHover;
 
-  const range = document.getWordRangeAtPosition(position);
-  if (!range) return;
-
-  const word = document.getText(range);
-
-  switch (word) {
-    case "x":
-      return new vscode.Hover("**x** → Horizontal position (left → right) in DragonRuby");
-    case "y":
-      return new vscode.Hover("**y** → Vertical position (bottom → top) in DragonRuby");
-    case "w":
-      return new vscode.Hover("**w** → Width of the sprite or element");
-    case "h":
-      return new vscode.Hover("**h** → Height of the sprite or element");
-        }
+        // Coordinate hover (x y w h)
+        return provideCoordinateHover(document, position);
       }
     }
   );
 
   context.subscriptions.push(hoverProvider);
+
+  // =========================
+  // Decorations
+  // =========================
+  const updateDecorations = (editor?: vscode.TextEditor) => {
+    if (!editor) return;
+    applyCoordinateDecorations(editor);
+  };
+
+  vscode.window.onDidChangeActiveTextEditor(updateDecorations);
+  vscode.workspace.onDidChangeTextDocument(() => {
+    updateDecorations(vscode.window.activeTextEditor);
+  });
+
+  updateDecorations(vscode.window.activeTextEditor);
 }
 
 export function deactivate() {}
