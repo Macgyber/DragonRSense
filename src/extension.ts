@@ -3,6 +3,8 @@ import * as vscode from "vscode";
 // Hover features
 import { provideSpriteHover } from "./features/hover/sprites";
 import { provideCoordinateHover } from "./features/hover/coordinates";
+import { provideCoordinateHover } from "./features/hover/coordinates";
+
 
 // Decorations
 import { applyCoordinateDecorations } from "./features/decorations/coordinates";
