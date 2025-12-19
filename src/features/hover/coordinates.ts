@@ -1,5 +1,8 @@
 import * as vscode from "vscode";
 
+import { isDragonRubyFile } from "../../core/dragonruby";
+
+
 export function provideCoordinateHover(
   document: vscode.TextDocument,
   position: vscode.Position
@@ -12,7 +15,7 @@ export function provideCoordinateHover(
   }
 
   // Solo DragonRuby
-  if (!document.getText().includes("args.")) return;
+  if (!isDragonRubyFile(document)) return;
 
   const range = document.getWordRangeAtPosition(position);
   if (!range) return;
