@@ -13,6 +13,11 @@ export function applyCoordinateDecorations(editor: vscode.TextEditor) {
     before: {
       contentText: "🎯 ",
       color: "#888"
+        /*
+  // SVG MODE (future)
+  gutterIconPath: context.asAbsolutePath("icons/size.svg"),
+  gutterIconSize: "contain"
+  */
     }
   });
 
