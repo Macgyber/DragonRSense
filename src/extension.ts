@@ -1,7 +1,18 @@
+import { applyCoordinateDecorations } from "./features/decorations/coordinates";
 import * as vscode from "vscode";
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log("DragonRSense is active 🐉");
+  console.log("DragonRSense is active 🐉"
+             vscode.window.onDidChangeActiveTextEditor(editor => {
+  if (editor) {
+    applyCoordinateDecorations(editor);
+  }
+});
+
+if (vscode.window.activeTextEditor) {
+  applyCoordinateDecorations(vscode.window.activeTextEditor);
+}
+             );
 
   const hoverProvider = vscode.languages.registerHoverProvider(
     { scheme: "file", language: "ruby" },
