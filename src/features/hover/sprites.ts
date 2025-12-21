@@ -60,7 +60,7 @@ export function provideSpriteHover(
   position: vscode.Position
 ): vscode.Hover | undefined {
   const settings = getSettings();
-  if (!settings.enableSpriteHover) { return; }
+  if (!settings.spritePreview) { return; }
 
   if (!isDragonRubyFile(document)) { return; }
 

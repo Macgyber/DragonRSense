@@ -21,7 +21,7 @@ export function applyCoordinateDecorations(editor: vscode.TextEditor) {
   const settings = getSettings();
 
   // Clear decorations if disabled
-  if (!settings.enableDecorations || !settings.enableCoordinates) {
+  if (!settings.decorations || !settings.coordinates) {
     editor.setDecorations(positionDecoration, []);
     editor.setDecorations(sizeDecoration, []);
     return;

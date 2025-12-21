@@ -9,31 +9,31 @@ export function provideCoordinateHover(
   const settings = getSettings();
 
   // Check if features are enabled
-  if (!settings.enableCoordinates && !settings.enableSizes) {return;}
+  if (!settings.coordinates && !settings.sizes) { return; }
 
   // Only DragonRuby files
-  if (!isDragonRubyFile(document)) {return;}
+  if (!isDragonRubyFile(document)) { return; }
 
   const range = document.getWordRangeAtPosition(position);
-  if (!range) {return;}
+  if (!range) { return; }
 
   const word = document.getText(range);
 
   switch (word) {
     case "x":
-      if (!settings.enableCoordinates) {return;}
+      if (!settings.coordinates) { return; }
       return new vscode.Hover("**x** → Horizontal position (left → right) in DragonRuby");
 
     case "y":
-      if (!settings.enableCoordinates) {return;}
+      if (!settings.coordinates) { return; }
       return new vscode.Hover("**y** → Vertical position (bottom → top) in DragonRuby");
 
     case "w":
-      if (!settings.enableSizes) {return;}
+      if (!settings.sizes) { return; }
       return new vscode.Hover("**w** → Width of the sprite or element");
 
     case "h":
-      if (!settings.enableSizes) {return;}
+      if (!settings.sizes) { return; }
       return new vscode.Hover("**h** → Height of the sprite or element");
 
     default:

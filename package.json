@@ -4,6 +4,10 @@
   "description": "Where code stops being numbers and becomes meaning.",
   "version": "0.0.1",
   "publisher": "MagyGames",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Macgyber/DragonRSense.git"
+  },
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -30,25 +34,25 @@
     "configuration": {
       "title": "DragonRSense",
       "properties": {
-        "dragonrsense.enableCoordinates": {
+        "dragonrsense.coordinates": {
           "type": "boolean",
           "default": true,
-          "description": "Enable hover helpers for x and y coordinates"
+          "description": "Show hover info for X and Y coordinates"
         },
-        "dragonrsense.enableSizes": {
+        "dragonrsense.sizes": {
           "type": "boolean",
           "default": true,
-          "description": "Enable hover helpers for w and h (width and height)"
+          "description": "Show hover info for W and H (width/height)"
         },
-        "dragonrsense.enableSpriteHover": {
+        "dragonrsense.spritePreview": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show sprite preview on hover"
+        },
+        "dragonrsense.decorations": {
           "type": "boolean",
           "default": false,
-          "description": "Enable sprite path hover preview"
-        },
-        "dragonrsense.enableDecorations": {
-          "type": "boolean",
-          "default": false,
-          "description": "Enable visual decorations (icons) in the editor"
+          "description": "Show visual icons next to coordinates"
         }
       }
     }

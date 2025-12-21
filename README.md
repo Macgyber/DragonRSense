@@ -1,67 +1,160 @@
-# 🐉 DRAGONRSENSE
+# 🐉 DragonRSense
 
-Where code stops being numbers and becomes meaning.
+**Where code stops being numbers and becomes meaning.**
 
-DragonRSense is a Visual Studio Code extension built specifically for
-DragonRuby Game Toolkit, focused on making coordinates, sizes, and
-basic code structures clear and understandable.
+A Visual Studio Code extension designed exclusively for [DragonRuby Game Toolkit](https://dragonruby.org), making game code more visual, understandable, and interactive.
 
 ---
 
-## ✅ Current Focus (v0.1)
+## ✨ Features
 
-### Coordinates & Sizes
-- [x] Detection of `x`, `y`, `w`, `h`
-- [x] Visual helpers to understand position and size
-- [ ] Semantic indicators (position vs dimension)
-- [ ] Hover explanations for each coordinate
+### 🎯 Coordinate Intelligence
 
-### Basic Snippets
-- [x] `dr-sprite` → Base sprite
-- [x] `dr-label` → Simple text
-- [ ] `dr-button` → Interactive button
-- [ ] `dr-debug` → Quick visual debug
+Hover over `x`, `y`, `w`, `h` to see helpful explanations:
+
+- **x** → Horizontal position (left → right)
+- **y** → Vertical position (bottom → top)  
+- **w** → Width of the sprite or element
+- **h** → Height of the sprite or element
+
+### 🖼️ Sprite Preview
+
+Hover over sprite paths to see:
+- Image preview
+- Dimensions (e.g., 32 × 32 px)
+- File size
+- Relative path
+
+### 🎨 Visual Decorations *(Optional)*
+
+Show helpful icons next to coordinates in your code:
+- 🎯 Position indicators (x, y)
+- 📐 Size indicators (w, h)
 
 ---
 
-## ⏳ Planned
+## 🚀 Quick Start
 
-### Visual Helpers
-- [ ] RGBA color preview
-- [ ] Visual indicators for `w / h`
-- [ ] Semantic icons (position, size)
+### Installation
 
-### Advanced Snippets
-- [ ] `dr-overlay`
-- [ ] `dr-sound`
-- [ ] `dr-state`
-- [ ] `dr-grid-iso`
+1. Download the `.vsix` file
+2. In VS Code: `Ctrl+Shift+X` → `...` → `Install from VSIX...`
+3. Select `dragonrsense-0.0.1.vsix`
+4. Reload VS Code
 
 ### Configuration
-- [ ] Enable / disable helpers
-- [ ] Basic / intermediate / advanced levels
+
+Open Settings (`Ctrl+,`) and search for "DragonRSense":
+
+- ✅ **Coordinates** - Show hover info for X and Y
+- ✅ **Sizes** - Show hover info for W and H  
+- ✅ **Sprite Preview** - Show sprite preview on hover
+- ⚠️ **Decorations** - Show visual icons (optional)
 
 ---
 
-## 🧠 Philosophy
+## 📖 Usage
 
-> First understand.  
-> Then optimize.  
-> Then scale.
+### Example Code
 
-DragonRSense does not try to do everything at once.
-It focuses on doing the **right things first**.
+```ruby
+def tick args
+  args.outputs.sprites << {
+    x: 640,      # Hover to see: "Horizontal position"
+    y: 360,      # Hover to see: "Vertical position"
+    w: 64,       # Hover to see: "Width"
+    h: 64,       # Hover to see: "Height"
+    path: "sprites/player.png"  # Hover to see sprite preview
+  }
+end
+```
+
+### Commands
+
+- `DragonRSense: Hello World` - Verify extension is active
 
 ---
 
-## 🚧 Project Status
+## ⚙️ Settings
 
-🟡 Actively in development  
-🤝 Open to community contributions
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `dragonrsense.coordinates` | `true` | Show hover info for X and Y coordinates |
+| `dragonrsense.sizes` | `true` | Show hover info for W and H (width/height) |
+| `dragonrsense.spritePreview` | `true` | Show sprite preview on hover |
+| `dragonrsense.decorations` | `false` | Show visual icons next to coordinates |
 
 ---
 
-## 📜 License
+## 🎯 Philosophy
 
-MIT License
+DragonRSense is a **non-invasive editor intelligence layer**:
 
+- ✅ The editor enriches understanding
+- ✅ Never modifies your code
+- ✅ All features are optional
+- ✅ Your code remains valid DragonRuby code
+
+> The editor becomes a quiet assistant, not a ruler.
+
+---
+
+## 🛠️ Development
+
+### Requirements
+
+- Node.js 20.x or higher
+- VS Code 1.80.0 or higher
+
+### Build
+
+```bash
+npm install
+npm run compile
+```
+
+### Debug
+
+Press `F5` to open Extension Development Host
+
+### Package
+
+```bash
+npm install -g @vscode/vsce
+vsce package
+```
+
+---
+
+## 📋 Roadmap
+
+- [x] Coordinate & Size Awareness
+- [x] Sprite Preview with Dimensions
+- [ ] Navigation (Cmd/Ctrl + Click)
+- [ ] Require Intelligence
+- [ ] Color Intelligence
+- [ ] API Autocomplete
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+---
+
+## 📝 License
+
+MIT License - See [LICENSE](LICENSE) for details.
+
+---
+
+## 🔗 Links
+
+- [DragonRuby Game Toolkit](https://dragonruby.org)
+- [GitHub Repository](https://github.com/Macgyber/DragonRSense)
+- [Report Issues](https://github.com/Macgyber/DragonRSense/issues)
+
+---
+
+**Made with ❤️ for the DragonRuby community**
