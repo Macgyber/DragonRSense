@@ -1,38 +1,43 @@
-"DragonRuby Sprite Base": {
-  "prefix": "dr-sprite",
-  "body": [
-    "{",
-    "  x: ${2:0},",
-    "  y: ${3:0},",
-    "  w: ${4:64},",
-    "  h: ${5:64},",
-    "  path: \"${1:sprites/}\"",
-    "}"
-  ],
-  "description": "DragonRuby base sprite (cursor starts at path)"
-},
-
+{
+  "DragonRuby Sprite Base": {
+    "prefix": "dr-sprite",
+    "body": [
+      "{",
+      "  x: ${2:0},",
+      "  y: ${3:0},",
+      "  w: ${4:64},",
+      "  h: ${5:64},",
+      "  path: \"${1:sprites/}\"",
+      "}"
+    ],
+    "description": "DragonRuby base sprite (cursor starts at path)"
+  },
   "DragonRuby X Coordinate": {
     "prefix": "dr-x",
-    "body": ["x: ${1:0},"],
+    "body": [
+      "x: ${1:0},"
+    ],
     "description": "X position (horizontal)"
   },
-
   "DragonRuby Y Coordinate": {
     "prefix": "dr-y",
-    "body": ["y: ${1:0},"],
+    "body": [
+      "y: ${1:0},"
+    ],
     "description": "Y position (vertical)"
   },
-
   "DragonRuby Width": {
     "prefix": "dr-w",
-    "body": ["w: ${1:64},"],
+    "body": [
+      "w: ${1:64},"
+    ],
     "description": "Width"
   },
-
   "DragonRuby Height": {
     "prefix": "dr-h",
-    "body": ["h: ${1:64},"],
+    "body": [
+      "h: ${1:64},"
+    ],
     "description": "Height"
   }
 }

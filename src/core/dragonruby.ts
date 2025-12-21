@@ -7,7 +7,7 @@ import * as vscode from "vscode";
 export function isDragonRubyFile(
   document: vscode.TextDocument
 ): boolean {
-  if (document.languageId !== "ruby") return false;
+  if (document.languageId !== "ruby") {return false;}
 
   const text = document.getText();
 

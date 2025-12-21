@@ -1,39 +1,40 @@
 import * as vscode from "vscode";
 import { getSettings } from "../../core/settings";
-
 import { isDragonRubyFile } from "../../core/dragonruby";
 
+// Create decorations once to avoid memory leaks
+const positionDecoration = vscode.window.createTextEditorDecorationType({
+  before: {
+    contentText: "🎯 ",
+    color: "#888"
+  }
+});
+
+const sizeDecoration = vscode.window.createTextEditorDecorationType({
+  before: {
+    contentText: "📐 ",
+    color: "#888"
+  }
+});
 
 export function applyCoordinateDecorations(editor: vscode.TextEditor) {
   const settings = getSettings();
 
-if (!settings.enableDecorations) return;
-if (!settings.enableCoordinates) return;
+  // Clear decorations if disabled
+  if (!settings.enableDecorations || !settings.enableCoordinates) {
+    editor.setDecorations(positionDecoration, []);
+    editor.setDecorations(sizeDecoration, []);
+    return;
+  }
 
+  // Only DragonRuby files
+  if (!isDragonRubyFile(editor.document)) {
+    editor.setDecorations(positionDecoration, []);
+    editor.setDecorations(sizeDecoration, []);
+    return;
+  }
 
   const text = editor.document.getText();
- if (!isDragonRubyFile(editor.document)) return;
-
-
-  const positionDecoration = vscode.window.createTextEditorDecorationType({
-    before: {
-      contentText: "🎯 ",
-      color: "#888"
-        /*
-  // SVG MODE (future)
-  gutterIconPath: context.asAbsolutePath("icons/size.svg"),
-  gutterIconSize: "contain"
-  */
-    }
-  });
-
-  const sizeDecoration = vscode.window.createTextEditorDecorationType({
-    before: {
-      contentText: "📐 ",
-      color: "#888"
-    }
-  });
-
   const positionRanges: vscode.DecorationOptions[] = [];
   const sizeRanges: vscode.DecorationOptions[] = [];
 
@@ -53,4 +54,10 @@ if (!settings.enableCoordinates) return;
 
   editor.setDecorations(positionDecoration, positionRanges);
   editor.setDecorations(sizeDecoration, sizeRanges);
+}
+
+// Cleanup function for when extension is deactivated
+export function disposeDecorations() {
+  positionDecoration.dispose();
+  sizeDecoration.dispose();
 }

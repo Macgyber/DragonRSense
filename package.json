@@ -7,40 +7,67 @@
   "engines": {
     "vscode": "^1.80.0"
   },
-  "categories": ["Other"],
-  "activationEvents": ["*"],
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "dragonruby",
+    "game development",
+    "ruby"
+  ],
+  "activationEvents": [
+    "onLanguage:ruby"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "dragonrsense.hello",
-        "title": "DragonRSense: Hello"
+        "title": "DragonRSense: Hello World"
       }
     ],
-     "configuration": {
-    "title": "DragonRSense",
-    "properties": {
-      "dragonrsense.enableCoordinates": {
-        "type": "boolean",
-        "default": true,
-        "description": "Enable hover helpers for x and y coordinates"
-      },
-      "dragonrsense.enableSizes": {
-        "type": "boolean",
-        "default": true,
-        "description": "Enable hover helpers for w and h (width and height)"
-      },
-      "dragonrsense.enableSpriteHover": {
-        "type": "boolean",
-        "default": false,
-        "description": "Enable sprite path hover preview"
-      },
-      "dragonrsense.enableDecorations": {
-        "type": "boolean",
-        "default": false,
-        "description": "Enable visual decorations (icons) in the editor"
+    "configuration": {
+      "title": "DragonRSense",
+      "properties": {
+        "dragonrsense.enableCoordinates": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable hover helpers for x and y coordinates"
+        },
+        "dragonrsense.enableSizes": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable hover helpers for w and h (width and height)"
+        },
+        "dragonrsense.enableSpriteHover": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable sprite path hover preview"
+        },
+        "dragonrsense.enableDecorations": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable visual decorations (icons) in the editor"
+        }
       }
     }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "^20.x",
+    "@typescript-eslint/eslint-plugin": "^6.x",
+    "@typescript-eslint/parser": "^6.x",
+    "eslint": "^8.x",
+    "typescript": "^5.x",
+    "@vscode/test-electron": "^2.3.x"
   }
-} 
-
+}
