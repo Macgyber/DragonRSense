@@ -7,7 +7,7 @@ export const PATTERNS = {
      * Matches sprite paths in quotes
      * Example: "sprites/player.png"
      */
-    spritePath: /"([^"]+\.(png|jpg|jpeg|gif|bmp))"/gi,
+    spritePath: /"([^"]+\.(png|jpg|jpeg|gif|bmp|svg))"/gi,
 
     /**
      * Matches require statements
@@ -50,9 +50,9 @@ export const PATTERNS = {
  * File extension patterns
  */
 export const FILE_EXTENSIONS = {
-    images: ['.png', '.jpg', '.jpeg', '.gif', '.bmp'],
+    images: ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg'],
     ruby: ['.rb'],
-    allSupported: ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.rb'],
+    allSupported: ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.rb', '.svg'],
 };
 
 /**

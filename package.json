@@ -29,6 +29,10 @@
       {
         "command": "dragonrsense.hello",
         "title": "DragonRSense: Hello World"
+      },
+      {
+        "command": "dragonrsense.debugLinks",
+        "title": "DragonRSense: Debug Links"
       }
     ],
     "configuration": {

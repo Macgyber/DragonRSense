@@ -1,0 +1,133 @@
+import * as vscode from 'vscode';
+import * as path from 'path';
+import * as fs from 'fs';
+import { PATTERNS } from '../../utils/patterns';
+
+export class DragonRubyLinkProvider implements vscode.DocumentLinkProvider {
+    provideDocumentLinks(
+        document: vscode.TextDocument,
+        token: vscode.CancellationToken
+    ): vscode.ProviderResult<vscode.DocumentLink[]> {
+        const links: vscode.DocumentLink[] = [];
+        const text = document.getText();
+        const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+
+        console.log(`DragonRSense: Analyzing file ${document.fileName}`);
+
+        let rootPath = "";
+        if (workspaceFolder) {
+            rootPath = workspaceFolder.uri.fsPath;
+            console.log(`DragonRSense: Workspace folder found: ${rootPath}`);
+        } else {
+            console.warn("DragonRSense: No workspace folder found, trying relative to file.");
+            rootPath = path.dirname(document.fileName); // Fallback
+            console.log(`DragonRSense: Using document directory as root: ${rootPath}`);
+        }
+
+        // 1. Detectar Sprites ("sprites/...")
+        // Importante: Crear nueva instancia de RegExp para evitar problemas con lastIndex
+        const spriteRegex = new RegExp(PATTERNS.spritePath.source, PATTERNS.spritePath.flags);
+        const spriteMatches = text.matchAll(spriteRegex);
+
+        // Debug conteo
+        let spriteCount = 0;
+
+        for (const match of spriteMatches) {
+            spriteCount++;
+            if (match.index === undefined) continue;
+
+            const fullMatch = match[0];
+            const filePath = match[1]; // El contenido dentro de las comillas
+
+            console.log(`DragonRSense: Found sprite link: ${filePath}`);
+            console.log(`DragonRSense: Match found: ${fullMatch}`);
+
+            // Calcular rango del enlace (solo el texto de la ruta, sin comillas)
+            // match.index apunta al inicio de la cadena, incluyendo la comilla inicial
+            const valueStartIndex = match.index + fullMatch.indexOf(filePath);
+            const start = document.positionAt(valueStartIndex);
+            const end = document.positionAt(valueStartIndex + filePath.length);
+
+            console.log(`DragonRSense: Creating link at Lines ${start.line}:${start.character} to ${end.line}:${end.character}`);
+
+            const range = new vscode.Range(start, end);
+
+            // Resolver ruta absoluta (Estrategia múltiple)
+            const possiblePaths = [
+                path.join(rootPath, filePath),                       // 1. Desde la raíz
+                path.join(path.dirname(document.fileName), filePath), // 2. Relativo al archivo actual
+                path.join(rootPath, 'mygame', filePath),             // 3. Dentro de carpeta standard 'mygame'
+                path.join(rootPath, 'app', filePath)                 // 4. Dentro de carpeta 'app'
+            ];
+
+            let targetPath = possiblePaths[0];
+            let exists = false;
+
+            for (const p of possiblePaths) {
+                if (fs.existsSync(p)) {
+                    targetPath = p;
+                    exists = true;
+                    console.log(`DragonRSense: File found at ${p}`);
+                    break;
+                }
+            }
+
+            if (!exists) {
+                console.log(`DragonRSense: File NOT found. Checked: ${possiblePaths.join(', ')}`);
+            }
+
+            const targetUri = vscode.Uri.file(targetPath);
+
+            // Crear el enlace
+            const link = new vscode.DocumentLink(range, targetUri);
+            link.tooltip = exists ? "Abrir sprite" : "Sprite no encontrado (Click para crear)";
+            links.push(link);
+        }
+        console.log(`DragonRSense: Total sprites found: ${spriteCount}`);
+
+        // 2. Detectar Requires (require '...')
+        const requireRegex = new RegExp(PATTERNS.requirePath.source, PATTERNS.requirePath.flags);
+        const requireMatches = text.matchAll(requireRegex);
+
+        for (const match of requireMatches) {
+            if (match.index === undefined) continue;
+
+            const fullMatch = match[0];
+            const filePath = match[1];
+
+            const valueStartIndex = match.index + fullMatch.indexOf(filePath);
+            const start = document.positionAt(valueStartIndex);
+            const end = document.positionAt(valueStartIndex + filePath.length);
+            const range = new vscode.Range(start, end);
+
+            // Los requires en DragonRuby suelen ser relativos o desde la raíz
+            // Si termina en .rb bien, sino se lo agregamos
+            let fullPath = filePath;
+            if (!fullPath.endsWith('.rb')) {
+                fullPath += '.rb';
+            }
+
+            const targetUri = vscode.Uri.file(path.join(rootPath, fullPath));
+
+            const exists = fs.existsSync(targetUri.fsPath);
+
+            const link = new vscode.DocumentLink(range, targetUri);
+            link.tooltip = exists ? "Ir al código" : "Archivo no encontrado";
+            links.push(link);
+        }
+
+        return links;
+    }
+}
+
+export function registerLinkProvider(context: vscode.ExtensionContext) {
+    const provider = new DragonRubyLinkProvider();
+
+    // Registrar para archivos Ruby
+    const disposable = vscode.languages.registerDocumentLinkProvider(
+        { scheme: 'file', language: 'ruby' },
+        provider
+    );
+
+    context.subscriptions.push(disposable);
+}
