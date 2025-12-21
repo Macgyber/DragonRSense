@@ -103,13 +103,34 @@ $RECYCLE.BIN/
 dist/
 
 # ============================================
-# Optional: Personal IDE settings
+# Personal/Temporary files (NOT for repo)
 # ============================================
 
-# Personal vision/notes (not for public repo)
-#vison.md
-#VISION_ANALYSIS.md
-#ideas.md
+# Internal documentation (no necesarios en GitHub)
+ANALISIS_GITIGNORE.md
+AUDITORIA_PROYECTO.md
+DIAGNOSTICO_HOVER.md
+REPORTE_I18N.md
+REPORTE_VERIFICACION.md
+VISION.md
+VISION_ANALYSIS.md
+
+# Test assets (sprites de prueba)
+sprites/
+
+# Temporary test files (pueden modificarse localmente)
+# Nota: Los archivos test-*.rb se suben al repo como ejemplos
+# pero puedes crear archivos test-local-*.rb que se ignorarán
+test-local-*.rb
+
+# Personal notes (opcional)
+# Descomenta si quieres ignorar notas personales
+# notes.md
+# TODO.md
+
+# ============================================
+# VS Code Settings (opcional)
+# ============================================
 
 # Uncomment if you want to ignore personal VS Code settings
 # .vscode/settings.json

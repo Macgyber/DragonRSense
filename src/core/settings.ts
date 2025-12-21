@@ -4,7 +4,7 @@ export interface DragonRSenseSettings {
   coordinates: boolean;
   sizes: boolean;
   spritePreview: boolean;
-  decorations: boolean;
+  resourceDiscovery: boolean;
 }
 
 export function getSettings(): DragonRSenseSettings {
@@ -14,6 +14,6 @@ export function getSettings(): DragonRSenseSettings {
     coordinates: config.get<boolean>("coordinates", true),
     sizes: config.get<boolean>("sizes", true),
     spritePreview: config.get<boolean>("spritePreview", true),
-    decorations: config.get<boolean>("decorations", false)
+    resourceDiscovery: config.get<boolean>("resourceDiscovery", true)
   };
 }

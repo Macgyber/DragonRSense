@@ -24,6 +24,17 @@ Hover over sprite paths to see:
 - Dimensions (e.g., 32 × 32 px)
 - File size
 - Relative path
+- **Error messages** if sprite not found or unsupported
+
+### 🔍 Resource Discovery **(NEW!)**
+
+Smart autocompletion while typing paths:
+
+- **Sprites**: Type `"sprites/` → Get suggestions from actual project files
+- **Audio**: Type `"sounds/` → Discover audio files (WAV, MP3, OGG)
+- **Require**: Type `require "` → Find Ruby modules in your project
+
+The editor helps you **discover what exists**, not remember names.
 
 ### 🎨 Visual Decorations *(Optional)*
 
@@ -82,7 +93,7 @@ end
 | `dragonrsense.coordinates` | `true` | Show hover info for X and Y coordinates |
 | `dragonrsense.sizes` | `true` | Show hover info for W and H (width/height) |
 | `dragonrsense.spritePreview` | `true` | Show sprite preview on hover |
-| `dragonrsense.decorations` | `false` | Show visual icons next to coordinates |
+| `dragonrsense.resourceDiscovery` | `true` | Suggest sprites, audio files, and require paths while typing |
 
 ---
 

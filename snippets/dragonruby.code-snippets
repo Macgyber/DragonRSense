@@ -12,6 +12,84 @@
     ],
     "description": "DragonRuby base sprite (cursor starts at path)"
   },
+  "DragonRuby Centered Sprite": {
+    "prefix": "dr-sprite-centered",
+    "body": [
+      "{",
+      "  x: 640.-(${1:64}.fdiv 2),",
+      "  y: 360.-(${2:64}.fdiv 2),",
+      "  w: ${1:64},",
+      "  h: ${2:64},",
+      "  path: \"${3:sprites/}\"",
+      "}"
+    ],
+    "description": "DragonRuby centered sprite (cursor ends at path)"
+  },
+  "DragonRuby Add Sprite": {
+    "prefix": "dr-add-sprite",
+    "body": [
+      "args.outputs.sprites << {",
+      "  x: ${1:0},",
+      "  y: ${2:0},",
+      "  w: ${3:64},",
+      "  h: ${4:64},",
+      "  path: \"${5:sprites/}\"",
+      "}"
+    ],
+    "description": "Add sprite to args.outputs.sprites (cursor ends at path)"
+  },
+  "DragonRuby Add Solid": {
+    "prefix": "dr-add-solid",
+    "body": [
+      "args.outputs.solids << {",
+      "  x: ${1:0},",
+      "  y: ${2:0},",
+      "  w: ${3:64},",
+      "  h: ${4:64},",
+      "  r: ${5:255},",
+      "  g: ${6:255},",
+      "  b: ${7:255}",
+      "}"
+    ],
+    "description": "Add solid rectangle to args.outputs.solids"
+  },
+  "DragonRuby Add Border": {
+    "prefix": "dr-add-border",
+    "body": [
+      "args.outputs.borders << {",
+      "  x: ${1:0},",
+      "  y: ${2:0},",
+      "  w: ${3:64},",
+      "  h: ${4:64},",
+      "  r: ${5:255},",
+      "  g: ${6:255},",
+      "  b: ${7:255}",
+      "}"
+    ],
+    "description": "Add border to args.outputs.borders"
+  },
+  "DragonRuby Add Label": {
+    "prefix": "dr-add-label",
+    "body": [
+      "args.outputs.labels << {",
+      "  x: ${1:640},",
+      "  y: ${2:360},",
+      "  text: \"${3:Hello}\",",
+      "  size_enum: ${4:2},",
+      "  alignment_enum: ${5:1}",
+      "}"
+    ],
+    "description": "Add label to args.outputs.labels"
+  },
+  "DragonRuby Tick Function": {
+    "prefix": "dr-tick",
+    "body": [
+      "def tick args",
+      "  $1",
+      "end"
+    ],
+    "description": "DragonRuby main tick function"
+  },
   "DragonRuby X Coordinate": {
     "prefix": "dr-x",
     "body": [
@@ -39,5 +117,19 @@
       "h: ${1:64},"
     ],
     "description": "Height"
+  },
+  "DragonRuby Path": {
+    "prefix": "dr-path",
+    "body": [
+      "path: \"${1:sprites/}\""
+    ],
+    "description": "Sprite path"
+  },
+  "DragonRuby Rectangle": {
+    "prefix": "dr-rect",
+    "body": [
+      "{ x: ${1:0}, y: ${2:0}, w: ${3:64}, h: ${4:64} }"
+    ],
+    "description": "DragonRuby rectangle (x, y, w, h)"
   }
 }

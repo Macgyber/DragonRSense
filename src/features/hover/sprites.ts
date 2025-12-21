@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { getSettings } from "../../core/settings";
 import { isDragonRubyFile } from "../../core/dragonruby";
+import { t } from "../../i18n";
 import * as path from "path";
 import * as fs from "fs";
 
@@ -64,7 +65,8 @@ export function provideSpriteHover(
 
   if (!isDragonRubyFile(document)) { return; }
 
-  const range = document.getWordRangeAtPosition(position, /"([^"]+\.(png|jpg|jpeg))"/);
+  // Update regex to also detect SVG
+  const range = document.getWordRangeAtPosition(position, /"([^"]+\.(png|jpg|jpeg|svg))"/);
   if (!range) { return; }
 
   const raw = document.getText(range);
@@ -74,7 +76,35 @@ export function provideSpriteHover(
   if (!workspace) { return; }
 
   const absolutePath = path.join(workspace.uri.fsPath, relativePath);
-  if (!fs.existsSync(absolutePath)) { return; }
+  const ext = path.extname(absolutePath).toLowerCase();
+
+  // Build hover content
+  const md = new vscode.MarkdownString();
+  md.supportHtml = true;
+  md.isTrusted = true;
+
+  // Check if file exists
+  if (!fs.existsSync(absolutePath)) {
+    // FILE NOT FOUND - Show error message
+    md.appendMarkdown(`**⚠️ ${t('hover.sprite.notFound')}**\n\n`);
+    md.appendMarkdown(`---\n\n`);
+    md.appendMarkdown(`❌ **${t('hover.sprite.fileNotExist')}**\n\n`);
+    md.appendMarkdown(`📁 **${t('hover.sprite.path')}:** \`${relativePath}\`\n\n`);
+    md.appendMarkdown(`**Tip:** ${t('hover.sprite.tipNotFound')}\n`);
+
+    return new vscode.Hover(md);
+  }
+
+  // Check if it's SVG (not supported by DragonRuby)
+  if (ext === '.svg') {
+    md.appendMarkdown(`**⚠️ ${t('hover.sprite.issue')}**\n\n`);
+    md.appendMarkdown(`---\n\n`);
+    md.appendMarkdown(`❌ **${t('hover.sprite.svgNotSupported')}**\n\n`);
+    md.appendMarkdown(`📁 **${t('hover.sprite.path')}:** \`${relativePath}\`\n\n`);
+    md.appendMarkdown(`**Tip:** ${t('hover.sprite.tipSvg')}\n`);
+
+    return new vscode.Hover(md);
+  }
 
   // Get file stats
   const stats = fs.statSync(absolutePath);
@@ -83,22 +113,27 @@ export function provideSpriteHover(
   // Get image dimensions
   const dimensions = getImageDimensions(absolutePath);
 
-  // Build hover content
-  const md = new vscode.MarkdownString();
-  md.supportHtml = true;
-  md.isTrusted = true;
+  // Check if format is supported (has dimensions)
+  if (!dimensions) {
+    // UNSUPPORTED FORMAT or CORRUPTED
+    md.appendMarkdown(`**⚠️ ${t('hover.sprite.issue')}**\n\n`);
+    md.appendMarkdown(`---\n\n`);
+    md.appendMarkdown(`❌ **${t('hover.sprite.unsupportedFormat')}**\n\n`);
+    md.appendMarkdown(`📁 **${t('hover.sprite.path')}:** \`${relativePath}\`\n\n`);
+    md.appendMarkdown(`💾 **${t('hover.sprite.size')}:** ${fileSize}\n\n`);
+    md.appendMarkdown(`**Tip:** ${t('hover.sprite.tipUnsupported')}\n`);
 
-  md.appendMarkdown(`**🎨 Sprite Preview**\n\n`);
-  md.appendMarkdown(`![sprite](file://${absolutePath})\n\n`);
-
-  md.appendMarkdown(`---\n\n`);
-
-  if (dimensions) {
-    md.appendMarkdown(`📐 **Dimensions:** ${dimensions.width} × ${dimensions.height} px\n\n`);
+    return new vscode.Hover(md);
   }
 
-  md.appendMarkdown(`📁 **Path:** \`${relativePath}\`\n\n`);
-  md.appendMarkdown(`💾 **Size:** ${fileSize}\n`);
+  // VALID IMAGE - Show preview with full details
+  md.appendMarkdown(`**🎨 ${t('hover.sprite.preview')}**\n\n`);
+  md.appendMarkdown(`![sprite](file://${absolutePath})\n\n`);
+  md.appendMarkdown(`---\n\n`);
+  md.appendMarkdown(`📐 **${t('hover.sprite.dimensions')}:** ${dimensions.width} × ${dimensions.height} px\n\n`);
+  md.appendMarkdown(`📄 **${t('hover.sprite.format')}:** ${ext.toUpperCase().substring(1)}\n\n`);
+  md.appendMarkdown(`📁 **${t('hover.sprite.path')}:** \`${relativePath}\`\n\n`);
+  md.appendMarkdown(`💾 **${t('hover.sprite.size')}:** ${fileSize}\n`);
 
   return new vscode.Hover(md);
 }

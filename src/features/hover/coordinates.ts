@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { getSettings } from "../../core/settings";
 import { isDragonRubyFile } from "../../core/dragonruby";
+import { t } from "../../i18n";
 
 export function provideCoordinateHover(
   document: vscode.TextDocument,
@@ -22,19 +23,19 @@ export function provideCoordinateHover(
   switch (word) {
     case "x":
       if (!settings.coordinates) { return; }
-      return new vscode.Hover("**x** → Horizontal position (left → right) in DragonRuby");
+      return new vscode.Hover(`**x** → ${t('hover.coordinates.x')}`);
 
     case "y":
       if (!settings.coordinates) { return; }
-      return new vscode.Hover("**y** → Vertical position (bottom → top) in DragonRuby");
+      return new vscode.Hover(`**y** → ${t('hover.coordinates.y')}`);
 
     case "w":
       if (!settings.sizes) { return; }
-      return new vscode.Hover("**w** → Width of the sprite or element");
+      return new vscode.Hover(`**w** → ${t('hover.coordinates.w')}`);
 
     case "h":
       if (!settings.sizes) { return; }
-      return new vscode.Hover("**h** → Height of the sprite or element");
+      return new vscode.Hover(`**h** → ${t('hover.coordinates.h')}`);
 
     default:
       return;

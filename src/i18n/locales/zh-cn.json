@@ -1,0 +1,35 @@
+{
+    "hover": {
+        "coordinates": {
+            "x": "水平位置（左→右）",
+            "y": "垂直位置（下→上）",
+            "w": "精灵或元素的宽度",
+            "h": "精灵或元素的高度"
+        },
+        "sprite": {
+            "preview": "精灵预览",
+            "notFound": "未找到精灵",
+            "issue": "精灵问题",
+            "fileNotExist": "文件不存在",
+            "unsupportedFormat": "不支持的格式或文件损坏",
+            "svgNotSupported": "DragonRuby 不支持 SVG 格式",
+            "dimensions": "尺寸",
+            "format": "格式",
+            "path": "路径",
+            "size": "大小",
+            "tipNotFound": "检查文件路径是否正确或文件是否被移动/删除。",
+            "tipUnsupported": "DragonRSense 目前支持 PNG 和 JPEG。文件可能已损坏。",
+            "tipSvg": "DragonRuby 需要 PNG 或 JPEG。请先将 SVG 转换为 PNG。"
+        }
+    },
+    "completion": {
+        "sprite": "精灵",
+        "audio": "音频",
+        "module": "Ruby 模块",
+        "pathLabel": "路径",
+        "requirePathLabel": "Require 路径"
+    },
+    "commands": {
+        "helloMessage": "DragonRSense 已激活！代码不再只是数字，而是意义。"
+    }
+}

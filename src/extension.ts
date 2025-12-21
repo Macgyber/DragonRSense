@@ -1,37 +1,37 @@
 import * as vscode from "vscode";
 
+// i18n
+import { initializeI18n, t } from "./i18n";
+
 // Hover features
 import { provideSpriteHover } from "./features/hover/sprites";
 import { provideCoordinateHover } from "./features/hover/coordinates";
 
-// Decorations
-import { applyCoordinateDecorations } from "./features/decorations/coordinates";
+// Completion features
+import { registerSpriteCompletion } from "./features/completion/sprites";
+import { registerAudioCompletion } from "./features/completion/audio";
+import { registerRequireCompletion } from "./features/completion/require";
+
+// Decoration features
+import { registerColorDecorations } from "./features/decorations/colors";
+
+// Color features
+import { registerColorProvider } from "./features/colors/provider";
 
 export function activate(context: vscode.ExtensionContext) {
+  // Initialize i18n (detects VS Code language)
+  initializeI18n();
+
   console.log("DragonRSense activated 🐉");
 
   // =========================
   // Commands
   // =========================
   const helloCommand = vscode.commands.registerCommand("dragonrsense.hello", () => {
-    vscode.window.showInformationMessage("🐉 DragonRSense is active! Where code stops being numbers and becomes meaning.");
+    vscode.window.showInformationMessage(`🐉 ${t('commands.helloMessage')}`);
   });
 
   context.subscriptions.push(helloCommand);
-
-  // =========================
-  // React to settings changes
-  // =========================
-  const configListener = vscode.workspace.onDidChangeConfiguration(event => {
-    if (event.affectsConfiguration("dragonrsense")) {
-      const editor = vscode.window.activeTextEditor;
-      if (editor) {
-        applyCoordinateDecorations(editor);
-      }
-    }
-  });
-
-  context.subscriptions.push(configListener);
 
   // =========================
   // Hover Provider (DragonRuby)
@@ -60,26 +60,19 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(hoverProvider);
 
   // =========================
-  // Decorations
+  // Resource Discovery (Completion Providers)
   // =========================
-  const updateDecorations = (editor?: vscode.TextEditor) => {
-    if (!editor) { return; }
-    applyCoordinateDecorations(editor);
-  };
+  registerSpriteCompletion(context);
+  registerAudioCompletion(context);
+  registerRequireCompletion(context);
 
-  const editorChangeListener = vscode.window.onDidChangeActiveTextEditor(updateDecorations);
-  const documentChangeListener = vscode.workspace.onDidChangeTextDocument(() => {
-    updateDecorations(vscode.window.activeTextEditor);
-  });
-
-  context.subscriptions.push(editorChangeListener);
-  context.subscriptions.push(documentChangeListener);
-
-  updateDecorations(vscode.window.activeTextEditor);
+  // =========================
+  // Color Decorations & Picker
+  // =========================
+  registerColorDecorations(context);
+  registerColorProvider(context);
 }
 
 export function deactivate() {
-  const { disposeDecorations } = require("./features/decorations/coordinates");
-  disposeDecorations();
+  // Cleanup if needed in the future
 }
-

@@ -22,6 +22,12 @@ export const PATTERNS = {
     rgbaColor: /r:\s*(\d+),\s*g:\s*(\d+),\s*b:\s*(\d+)(?:,\s*a:\s*(\d+))?/gi,
 
     /**
+     * Matches hexadecimal color values
+     * Example: 0xAAFF00, #aaff00, aaff00
+     */
+    hexColor: /(?:0x|#)?([0-9a-fA-F]{6})\b/gi,
+
+    /**
      * Matches coordinate properties
      * Example: x: 100, y: 200
      */

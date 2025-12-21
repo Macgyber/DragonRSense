@@ -1,0 +1,35 @@
+{
+    "hover": {
+        "coordinates": {
+            "x": "Posición horizontal (izquierda → derecha)",
+            "y": "Posición vertical (abajo → arriba)",
+            "w": "Ancho del sprite o elemento",
+            "h": "Alto del sprite o elemento"
+        },
+        "sprite": {
+            "preview": "Vista Previa del Sprite",
+            "notFound": "Sprite No Encontrado",
+            "issue": "Problema con el Sprite",
+            "fileNotExist": "El archivo no existe",
+            "unsupportedFormat": "Formato no soportado o archivo corrupto",
+            "svgNotSupported": "El formato SVG no es soportado por DragonRuby",
+            "dimensions": "Dimensiones",
+            "format": "Formato",
+            "path": "Ruta",
+            "size": "Tamaño",
+            "tipNotFound": "Verifica si la ruta del archivo es correcta o si el archivo fue movido/eliminado.",
+            "tipUnsupported": "DragonRSense actualmente soporta PNG y JPEG. El archivo puede estar corrupto.",
+            "tipSvg": "DragonRuby requiere PNG o JPEG. Convierte tu SVG a PNG primero."
+        }
+    },
+    "completion": {
+        "sprite": "Sprite",
+        "audio": "Audio",
+        "module": "Módulo Ruby",
+        "pathLabel": "Ruta",
+        "requirePathLabel": "Ruta de require"
+    },
+    "commands": {
+        "helloMessage": "¡DragonRSense está activo! Donde el código deja de ser números y se convierte en significado."
+    }
+}

@@ -49,17 +49,24 @@
           "default": true,
           "description": "Show sprite preview on hover"
         },
-        "dragonrsense.decorations": {
+        "dragonrsense.resourceDiscovery": {
           "type": "boolean",
-          "default": false,
-          "description": "Show visual icons next to coordinates"
+          "default": true,
+          "description": "Suggest sprites, audio files, and require paths while typing"
         }
       }
-    }
+    },
+    "snippets": [
+      {
+        "language": "ruby",
+        "path": "./snippets/dragonruby.code-snippets"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
+    "compile": "tsc -p ./ && npm run copy-locales",
+    "copy-locales": "mkdir -p out/i18n/locales && cp src/i18n/locales/*.json out/i18n/locales/",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
