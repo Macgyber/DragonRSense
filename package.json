@@ -4,6 +4,7 @@
   "description": "Where code stops being numbers and becomes meaning.",
   "version": "0.0.1",
   "publisher": "MagyGames",
+  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/Macgyber/DragonRSense.git"

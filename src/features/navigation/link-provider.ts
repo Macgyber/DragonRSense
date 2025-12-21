@@ -102,17 +102,35 @@ export class DragonRubyLinkProvider implements vscode.DocumentLinkProvider {
 
             // Los requires en DragonRuby suelen ser relativos o desde la raíz
             // Si termina en .rb bien, sino se lo agregamos
-            let fullPath = filePath;
-            if (!fullPath.endsWith('.rb')) {
-                fullPath += '.rb';
+            let targetFile = filePath;
+            if (!targetFile.endsWith('.rb')) {
+                targetFile += '.rb';
             }
 
-            const targetUri = vscode.Uri.file(path.join(rootPath, fullPath));
+            // Resolver ruta absoluta (Estrategia múltiple)
+            const possiblePaths = [
+                path.join(rootPath, targetFile),                     // 1. Desde la raíz
+                path.join(path.dirname(document.fileName), targetFile), // 2. Relativo al archivo
+                path.join(rootPath, 'app', targetFile),              // 3. En app/
+                path.join(rootPath, 'mygame', 'app', targetFile)     // 4. En mygame/app/
+            ];
 
-            const exists = fs.existsSync(targetUri.fsPath);
+            let targetPath = possiblePaths[0];
+            let exists = false;
+
+            for (const p of possiblePaths) {
+                if (fs.existsSync(p)) {
+                    targetPath = p;
+                    exists = true;
+                    console.log(`DragonRSense: Require found at ${p}`);
+                    break;
+                }
+            }
+
+            const targetUri = vscode.Uri.file(targetPath);
 
             const link = new vscode.DocumentLink(range, targetUri);
-            link.tooltip = exists ? "Ir al código" : "Archivo no encontrado";
+            link.tooltip = exists ? "Ir al código" : "Archivo no encontrado (Click para crear)";
             links.push(link);
         }
 
