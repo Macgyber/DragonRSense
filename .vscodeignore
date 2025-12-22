@@ -1,12 +1,36 @@
-.vscode/**
-.vscode-test/**
-src/**
-!src/i18n/locales/*.json
+# .vscodeignore - Files to exclude from the VS Code Extension Package (.vsix)
+
+# Development & Config
+.vscode/
 .gitignore
-.yarnrc
+.git/
+.vscodeignore
+tsconfig.json
+.eslintrc.json
 vsc-extension-quickstart.md
-**/tsconfig.json
-**/.eslintrc.json
-**/*.map
-**/*.ts
-node_modules/**
+
+# Source Code (we only ship the compiled 'out' folder)
+src/
+node_modules/
+!node_modules/
+
+# Tests
+test-extension.rb
+test-colors.rb
+.vscode-test/
+
+# Internal Documentation (User doesn't need these in the install)
+ANALISIS_GITIGNORE.md
+AUDITORIA_PROYECTO.md
+DIAGNOSTICO_HOVER.md
+REPORTE_I18N.md
+REPORTE_VERIFICACION.md
+VISION.md
+VISION_ANALYSIS.md
+ideas.md
+TESTING.md
+ROADMAP.md
+SESSION_LOG.md
+PUBLISHING.md
+
+# Note: We KEEP README.md, INSTRUCTIONS.md, LICENSE, and CONTRIBUTING.md
