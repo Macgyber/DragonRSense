@@ -11,9 +11,9 @@ export function getSettings(): DragonRSenseSettings {
   const config = vscode.workspace.getConfiguration("dragonrsense");
 
   return {
-    coordinates: config.get<boolean>("coordinates", true),
-    sizes: config.get<boolean>("sizes", true),
-    spritePreview: config.get<boolean>("spritePreview", true),
-    resourceDiscovery: config.get<boolean>("resourceDiscovery", true)
+    coordinates: config.get<boolean>("coordinates.enabled", true),
+    sizes: config.get<boolean>("coordinates.showSizes", true),
+    spritePreview: config.get<boolean>("sprites.hoverPreview", true),
+    resourceDiscovery: config.get<boolean>("resources.discovery", true)
   };
 }

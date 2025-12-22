@@ -47,7 +47,7 @@ async function walkDirectory(dir: string, workspaceRoot: string): Promise<string
         } else if (entry.isFile()) {
             // Only include image files
             const ext = path.extname(entry.name).toLowerCase();
-            if (['.png', '.jpg', '.jpeg', '.gif', '.bmp'].includes(ext)) {
+            if (['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg'].includes(ext)) {
                 // Store relative path from workspace root
                 const relativePath = path.relative(workspaceRoot, fullPath);
                 results.push(relativePath);
@@ -76,38 +76,47 @@ export class SpriteCompletionProvider implements vscode.CompletionItemProvider {
         // Get the line text up to cursor position
         const lineText = document.lineAt(position).text.substring(0, position.character);
 
-        // Check if we're inside a string that looks like a sprite path
-        const match = lineText.match(/"([^"]*sprites[^"]*)$/);
-        if (!match) { return; }
+        // Heuristic: Check if we are inside a string value assigned to a key ending in "path"
+        // ex: path: "...", icon_path: "...", source: "..."
+        // OR if the string content starts with typical directories like "sprites/" or "sounds/"
+        const keyMatch = lineText.match(/(\w+_)?path:\s*"([^"]*)$/);
+        const dirMatch = lineText.match(/"((?:sprites|assets|sounds|music)\/[^"]*)$/);
 
-        const partialPath = match[1];
+        // If neither pattern matches, we probably shouldn't suggest (to avoid noise)
+        if (!keyMatch && !dirMatch) { return; }
+
+        const partialPath = (keyMatch ? keyMatch[2] : dirMatch![1]) || "";
 
         // Get workspace folder
         const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
         if (!workspaceFolder) { return; }
 
-        // Discover sprites
+        // Discover sprites (cached or live)
         const sprites = await discoverSprites(workspaceFolder);
 
         // Create completion items
         const items: vscode.CompletionItem[] = [];
 
         for (const spritePath of sprites) {
-            // Only suggest sprites that match the partial path
-            if (spritePath.includes('sprites') && spritePath.includes(partialPath.split('/').pop() || '')) {
-                const item = new vscode.CompletionItem(spritePath, vscode.CompletionItemKind.File);
+            // VS Code handles fuzzy filtering, so we just return all valid paths usually.
+            // But to be performant, we can do a simple check
 
-                item.detail = `🎨 ${t('completion.sprite')}`;
-                item.documentation = new vscode.MarkdownString(`${t('completion.pathLabel')}: \`${spritePath}\``);
+            const item = new vscode.CompletionItem(spritePath, vscode.CompletionItemKind.File);
 
-                // Insert just the path
-                item.insertText = spritePath;
+            item.detail = `🎨 ${t('completion.sprite')}`;
+            item.documentation = new vscode.MarkdownString(`${t('completion.pathLabel')}: \`${spritePath}\``);
 
-                // Sort by path length (shorter = more likely to be relevant)
-                item.sortText = `${spritePath.length.toString().padStart(5, '0')}_${spritePath}`;
+            // Helpful: shows the image in the details if possible (using markdown)
+            const absolutePath = path.join(workspaceFolder.uri.fsPath, spritePath);
+            item.documentation.appendMarkdown(`\n\n![preview](file://${absolutePath.replace(/ /g, '%20')}|width=100)`);
 
-                items.push(item);
-            }
+            // Insert just the path
+            item.insertText = spritePath;
+
+            // Sort by path length (shorter = more likely to be relevant)
+            item.sortText = `${spritePath.length.toString().padStart(5, '0')}_${spritePath}`;
+
+            items.push(item);
         }
 
         return items;

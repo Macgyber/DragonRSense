@@ -39,29 +39,29 @@
     "configuration": {
       "title": "DragonRSense",
       "properties": {
-        "dragonrsense.coordinates": {
+        "dragonrsense.coordinates.enabled": {
           "type": "boolean",
           "default": true,
-          "markdownDescription": "%config.coordinates.desc%",
-          "description": "%config.coordinates.desc%"
+          "markdownDescription": "%config.coordinates.enabled.desc%",
+          "description": "%config.coordinates.enabled.desc%"
         },
-        "dragonrsense.sizes": {
+        "dragonrsense.coordinates.showSizes": {
           "type": "boolean",
           "default": true,
-          "markdownDescription": "%config.sizes.desc%",
-          "description": "%config.sizes.desc%"
+          "markdownDescription": "%config.coordinates.showSizes.desc%",
+          "description": "%config.coordinates.showSizes.desc%"
         },
-        "dragonrsense.spritePreview": {
+        "dragonrsense.sprites.hoverPreview": {
           "type": "boolean",
           "default": true,
-          "markdownDescription": "%config.spritePreview.desc%",
-          "description": "%config.spritePreview.desc%"
+          "markdownDescription": "%config.sprites.hoverPreview.desc%",
+          "description": "%config.sprites.hoverPreview.desc%"
         },
-        "dragonrsense.resourceDiscovery": {
+        "dragonrsense.resources.discovery": {
           "type": "boolean",
           "default": true,
-          "markdownDescription": "%config.resourceDiscovery.desc%",
-          "description": "%config.resourceDiscovery.desc%"
+          "markdownDescription": "%config.resources.discovery.desc%",
+          "description": "%config.resources.discovery.desc%"
         }
       }
     },
