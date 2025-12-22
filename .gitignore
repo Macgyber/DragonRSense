@@ -106,14 +106,7 @@ dist/
 # Personal/Temporary files (NOT for repo)
 # ============================================
 
-# Internal documentation (no necesarios en GitHub)
-ANALISIS_GITIGNORE.md
-AUDITORIA_PROYECTO.md
-DIAGNOSTICO_HOVER.md
-REPORTE_I18N.md
-REPORTE_VERIFICACION.md
-VISION.md
-VISION_ANALYSIS.md
+# Internal documentation and local tests are handled via .git/info/exclude
 
 # Test assets (sprites de prueba)
 sprites/
