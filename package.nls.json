@@ -1,5 +1,9 @@
 {
-    "config.title": "General Settings",
+    "extension.description": "Where code stops being numbers and becomes meaning.",
+    "command.hello.title": "DragonRSense: Hello World",
+    "config.title.coordinates": "Coordinates",
+    "config.title.sprites": "Sprites",
+    "config.title.resources": "Resources",
     "config.coordinates.enabled.desc": "Displays explanations when hovering over x and y properties.",
     "config.coordinates.showSizes.desc": "Displays explanations when hovering over w and h properties.",
     "config.sprites.hoverPreview.desc": "Shows a visual preview of the image when hovering over sprite paths.",

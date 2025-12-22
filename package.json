@@ -1,7 +1,7 @@
 {
   "name": "dragonrsense",
   "displayName": "DragonRSense",
-  "description": "Where code stops being numbers and becomes meaning.",
+  "description": "%extension.description%",
   "version": "0.0.5",
   "publisher": "MagyGames",
   "icon": "icon.png",
@@ -29,14 +29,14 @@
     "commands": [
       {
         "command": "dragonrsense.hello",
-        "title": "DragonRSense: Hello World"
+        "title": "%command.hello.title%"
       }
     ],
     "configuration": [
       {
-        "title": "Coordinates",
+        "title": "%config.title.coordinates%",
         "properties": {
-          "dragonrsense.coordinates.enabled": {
+          "dragonrsense.coordenada.enabled": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "%config.coordinates.enabled.desc%",
@@ -51,7 +51,7 @@
         }
       },
       {
-        "title": "Sprites",
+        "title": "%config.title.sprites%",
         "properties": {
           "dragonrsense.sprites.hoverPreview": {
             "type": "boolean",
@@ -62,7 +62,7 @@
         }
       },
       {
-        "title": "Resources",
+        "title": "%config.title.resources%",
         "properties": {
           "dragonrsense.resources.discovery": {
             "type": "boolean",

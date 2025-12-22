@@ -1,5 +1,9 @@
 {
-    "config.title": "Configuración General",
+    "extension.description": "Donde el código deja de ser números y se convierte en significado.",
+    "command.hello.title": "DragonRSense: Hola Mundo",
+    "config.title.coordinates": "Coordenadas",
+    "config.title.sprites": "Sprites",
+    "config.title.resources": "Recursos",
     "config.coordinates.enabled.desc": "Muestra explicaciones al pasar el mouse sobre las propiedades x e y.",
     "config.coordinates.showSizes.desc": "Muestra explicaciones al pasar el mouse sobre las propiedades w y h.",
     "config.sprites.hoverPreview.desc": "Muestra una previsualización de la imagen al pasar el mouse sobre rutas de sprites.",
