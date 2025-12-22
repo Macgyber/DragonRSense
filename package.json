@@ -36,35 +36,47 @@
         "title": "DragonRSense: Debug Links"
       }
     ],
-    "configuration": {
-      "title": "DragonRSense",
-      "properties": {
-        "dragonrsense.coordinates.enabled": {
-          "type": "boolean",
-          "default": true,
-          "markdownDescription": "%config.coordinates.enabled.desc%",
-          "description": "%config.coordinates.enabled.desc%"
-        },
-        "dragonrsense.coordinates.showSizes": {
-          "type": "boolean",
-          "default": true,
-          "markdownDescription": "%config.coordinates.showSizes.desc%",
-          "description": "%config.coordinates.showSizes.desc%"
-        },
-        "dragonrsense.sprites.hoverPreview": {
-          "type": "boolean",
-          "default": true,
-          "markdownDescription": "%config.sprites.hoverPreview.desc%",
-          "description": "%config.sprites.hoverPreview.desc%"
-        },
-        "dragonrsense.resources.discovery": {
-          "type": "boolean",
-          "default": true,
-          "markdownDescription": "%config.resources.discovery.desc%",
-          "description": "%config.resources.discovery.desc%"
+    "configuration": [
+      {
+        "title": "Coordinates",
+        "properties": {
+          "dragonrsense.coordinates.enabled": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "%config.coordinates.enabled.desc%",
+            "description": "%config.coordinates.enabled.desc%"
+          },
+          "dragonrsense.coordinates.showSizes": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "%config.coordinates.showSizes.desc%",
+            "description": "%config.coordinates.showSizes.desc%"
+          }
+        }
+      },
+      {
+        "title": "Sprites",
+        "properties": {
+          "dragonrsense.sprites.hoverPreview": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "%config.sprites.hoverPreview.desc%",
+            "description": "%config.sprites.hoverPreview.desc%"
+          }
+        }
+      },
+      {
+        "title": "Resources",
+        "properties": {
+          "dragonrsense.resources.discovery": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "%config.resources.discovery.desc%",
+            "description": "%config.resources.discovery.desc%"
+          }
         }
       }
-    },
+    ],
     "snippets": [
       {
         "language": "ruby",
