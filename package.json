@@ -42,22 +42,26 @@
         "dragonrsense.coordinates": {
           "type": "boolean",
           "default": true,
-          "description": "Show hover info for X and Y coordinates"
+          "markdownDescription": "%config.coordinates.desc%",
+          "description": "%config.coordinates.desc%"
         },
         "dragonrsense.sizes": {
           "type": "boolean",
           "default": true,
-          "description": "Show hover info for W and H (width/height)"
+          "markdownDescription": "%config.sizes.desc%",
+          "description": "%config.sizes.desc%"
         },
         "dragonrsense.spritePreview": {
           "type": "boolean",
           "default": true,
-          "description": "Show sprite preview on hover"
+          "markdownDescription": "%config.spritePreview.desc%",
+          "description": "%config.spritePreview.desc%"
         },
         "dragonrsense.resourceDiscovery": {
           "type": "boolean",
           "default": true,
-          "description": "Suggest sprites, audio files, and require paths while typing"
+          "markdownDescription": "%config.resourceDiscovery.desc%",
+          "description": "%config.resourceDiscovery.desc%"
         }
       }
     },

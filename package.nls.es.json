@@ -1,0 +1,11 @@
+{
+    "config.title": "Configuración General",
+    "config.coordinates": "Mostrar coordenadas X/Y en Hover",
+    "config.coordinates.desc": "Muestra explicaciones al pasar el mouse sobre las propiedades x e y.",
+    "config.sizes": "Mostrar tamaños W/H en Hover",
+    "config.sizes.desc": "Muestra explicaciones al pasar el mouse sobre las propiedades w y h.",
+    "config.spritePreview": "Mostrar vista previa de Sprites",
+    "config.spritePreview.desc": "Muestra una previsualización de la imagen al pasar el mouse sobre rutas de sprites.",
+    "config.resourceDiscovery": "Activar descubrimiento de recursos",
+    "config.resourceDiscovery.desc": "Sugiere sprites, audios y requires mientras escribes."
+}

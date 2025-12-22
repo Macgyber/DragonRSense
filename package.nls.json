@@ -1,0 +1,11 @@
+{
+    "config.title": "General Settings",
+    "config.coordinates": "Show X/Y Coordinate Hovers",
+    "config.coordinates.desc": "Displays explanations when hovering over x and y properties.",
+    "config.sizes": "Show W/H Size Hovers",
+    "config.sizes.desc": "Displays explanations when hovering over w and h properties.",
+    "config.spritePreview": "Show Sprite Previews",
+    "config.spritePreview.desc": "Shows a visual preview of the image when hovering over sprite paths.",
+    "config.resourceDiscovery": "Enable Resource Discovery",
+    "config.resourceDiscovery.desc": "Suggests sprites, audio files, and requires while typing."
+}
