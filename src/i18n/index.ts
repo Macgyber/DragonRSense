@@ -68,8 +68,6 @@ export function initializeI18n(): void {
     }
 
     loadTranslations(locale);
-
-    console.log(`DragonRSense: Loaded locale '${locale}' (VS Code locale: ${vscodeLocale})`);
 }
 
 /**

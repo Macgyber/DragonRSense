@@ -25,7 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
   // Initialize i18n (detects VS Code language)
   initializeI18n();
 
-  console.log("DragonRSense activated 🐉 -- LINK CHECK VERSIÓN");
+  console.log("DragonRSense activated 🐉");
 
   // =========================
   // Commands
@@ -34,26 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.window.showInformationMessage(`🐉 ${t('commands.helloMessage')}`);
   });
 
-  // DEBUG COMMAND: Check links manually
-  const debugLinksCommand = vscode.commands.registerCommand("dragonrsense.debugLinks", () => {
-    const editor = vscode.window.activeTextEditor;
-    if (!editor) {
-      vscode.window.showErrorMessage("No active editor");
-      return;
-    }
-    const text = editor.document.getText();
-    vscode.window.showInformationMessage(`Analizando archivo: ${editor.document.fileName}`);
-    // Simple regex check
-    const matches = text.match(/"([^"]+\.(png|jpg|jpeg|gif|bmp|svg))"/gi);
-    if (matches) {
-      vscode.window.showInformationMessage(`Encontrados ${matches.length} posibles sprites: ${matches.join(', ')}`);
-    } else {
-      vscode.window.showWarningMessage("No se encontraron patrones de sprites con el Regex actual.");
-    }
-  });
-
   context.subscriptions.push(helloCommand);
-  context.subscriptions.push(debugLinksCommand);
 
   // =========================
   // Hover Provider (DragonRuby)

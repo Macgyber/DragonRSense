@@ -12,16 +12,11 @@ export class DragonRubyLinkProvider implements vscode.DocumentLinkProvider {
         const text = document.getText();
         const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
 
-        console.log(`DragonRSense: Analyzing file ${document.fileName}`);
-
         let rootPath = "";
         if (workspaceFolder) {
             rootPath = workspaceFolder.uri.fsPath;
-            console.log(`DragonRSense: Workspace folder found: ${rootPath}`);
         } else {
-            console.warn("DragonRSense: No workspace folder found, trying relative to file.");
             rootPath = path.dirname(document.fileName); // Fallback
-            console.log(`DragonRSense: Using document directory as root: ${rootPath}`);
         }
 
         // 1. Detectar Sprites ("sprites/...")
@@ -29,27 +24,17 @@ export class DragonRubyLinkProvider implements vscode.DocumentLinkProvider {
         const spriteRegex = new RegExp(PATTERNS.spritePath.source, PATTERNS.spritePath.flags);
         const spriteMatches = text.matchAll(spriteRegex);
 
-        // Debug conteo
-        let spriteCount = 0;
-
         for (const match of spriteMatches) {
-            spriteCount++;
             if (match.index === undefined) continue;
 
             const fullMatch = match[0];
             const filePath = match[1]; // El contenido dentro de las comillas
-
-            console.log(`DragonRSense: Found sprite link: ${filePath}`);
-            console.log(`DragonRSense: Match found: ${fullMatch}`);
 
             // Calcular rango del enlace (solo el texto de la ruta, sin comillas)
             // match.index apunta al inicio de la cadena, incluyendo la comilla inicial
             const valueStartIndex = match.index + fullMatch.indexOf(filePath);
             const start = document.positionAt(valueStartIndex);
             const end = document.positionAt(valueStartIndex + filePath.length);
-
-            console.log(`DragonRSense: Creating link at Lines ${start.line}:${start.character} to ${end.line}:${end.character}`);
-
             const range = new vscode.Range(start, end);
 
             // Resolver ruta absoluta (Estrategia múltiple)
@@ -67,13 +52,8 @@ export class DragonRubyLinkProvider implements vscode.DocumentLinkProvider {
                 if (fs.existsSync(p)) {
                     targetPath = p;
                     exists = true;
-                    console.log(`DragonRSense: File found at ${p}`);
                     break;
                 }
-            }
-
-            if (!exists) {
-                console.log(`DragonRSense: File NOT found. Checked: ${possiblePaths.join(', ')}`);
             }
 
             const targetUri = vscode.Uri.file(targetPath);
@@ -83,7 +63,6 @@ export class DragonRubyLinkProvider implements vscode.DocumentLinkProvider {
             link.tooltip = exists ? "Abrir sprite" : "Sprite no encontrado (Click para crear)";
             links.push(link);
         }
-        console.log(`DragonRSense: Total sprites found: ${spriteCount}`);
 
         // 2. Detectar Requires (require '...')
         const requireRegex = new RegExp(PATTERNS.requirePath.source, PATTERNS.requirePath.flags);
@@ -122,7 +101,6 @@ export class DragonRubyLinkProvider implements vscode.DocumentLinkProvider {
                 if (fs.existsSync(p)) {
                     targetPath = p;
                     exists = true;
-                    console.log(`DragonRSense: Require found at ${p}`);
                     break;
                 }
             }
